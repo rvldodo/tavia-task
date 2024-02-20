@@ -1,0 +1,23 @@
+import { database } from "./root.js";
+
+const createUser = async (data) => {
+  const model = await database;
+  return await model.Employee.create(data);
+};
+
+const findByQuery = async (query = {}) => {
+  const model = await database;
+  return await model.Employee.findOne({ where: query });
+};
+
+const updateUserById = async (id, data) => {
+  const model = await database;
+  return await model.Employee.update(data, { where: { id } });
+};
+
+const bulkInsert = async (data) => {
+  const model = await database;
+  return await model.Employee.bulkInsert(data);
+};
+
+export default { createUser, findByQuery, updateUserById, bulkInsert };

@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "89756f15-e0da-4993-b652-9f9e79e7db2a",
+		"name": "tavia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29519837"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Rivaldo\",\n    \"last_name\": \"Lawalata\",\n    \"email\": \"ritza.kerz18@gmail.com\",\n    \"password\": \"ritzakerz1818\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{boilerplate_server}}/auth/signup",
+					"host": [
+						"{{boilerplate_server}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"nono.qwerty28@gmail.com\",\n    \"password\": \"ritzakerz1818\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forget password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"nono.qwerty28@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/forget-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"forget-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "export employee list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/export/xlsx",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"export",
+						"xlsx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "import file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/karadigital/Desktop/20240220T131915498Z-report.xlsx"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/file/import",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"file",
+						"import"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
