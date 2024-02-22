@@ -1,7 +1,8 @@
 import { employeeList } from "../../utils/xlsx.js";
 import { BadRequestException } from "../../exceptions/bad-request.js";
 import { ErrorCodes } from "../../exceptions/base.root.js";
-import readXlsxFile from "read-excel-file";
+import excelToJson from "convert-excel-to-json";
+import fs from "fs-extra";
 import userRepo from "../../repository/user.repo.js";
 
 export const exportFile = async (req, res, next) => {
@@ -30,35 +31,40 @@ export const importFile = async (req, res, next) => {
   const path = "./public/" + filename;
 
   let data = [];
-
-  readXlsxFile(path).then((res) => {
-    res.rows.shift();
-
-    res.rows.forEach((v) => {
-      data.push({
-        first_name: v[0],
-        last_name: v[1],
-        email: v[2],
-        password: v[3],
-        mobile_phone: v[4],
-        phone: v[5],
-        place_of_birth: v[6],
-        birthdate: v[7],
-        gender: v[8],
-        marital_status: v[9],
-        blood_type: v[10],
-        religion: v[11],
-        identity_type: v[12],
-        identity_number: v[13],
-        identity_expired_date: v[14],
-        postal_code: v[15],
-        citizen_id_address: v[16],
-        residential_address: v[17],
-      });
-    });
+  const excelData = excelToJson({
+    sourceFile: path,
+    header: {
+      rows: 1,
+    },
+    columnToKey: {
+      A: "id",
+      B: "first_name",
+      C: "last_name",
+      D: "email",
+      E: "password",
+      F: "mobile_phone",
+      E: "phone",
+      G: "place_of_birth",
+      H: "birthdate",
+      I: "gender",
+      J: "marital_status",
+      K: "religion",
+      L: "blood_type",
+      M: "identity_type",
+      N: "identity_number",
+      O: "identity_expired_date",
+      P: "postal_code",
+      Q: "citizen_id_address",
+      R: "residental_address",
+    },
   });
 
-  const result = await userRepo.bulkInsert(data);
+  excelData["Employee list"].forEach((v) => {
+    const { id, ...rest } = v;
+    data.push(rest);
+  });
+
+  const result = await userRepo.bulkInsertData(data);
   if (!result)
     new BadRequestException(
       "Cannot insert data from file",

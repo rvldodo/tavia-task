@@ -15,9 +15,9 @@ const updateUserById = async (id, data) => {
   return await model.Employee.update(data, { where: { id } });
 };
 
-const bulkInsert = async (data) => {
+const bulkInsertData = async (data) => {
   const model = await database;
-  return await model.Employee.bulkInsert(data);
+  return await model.Employee.bulkCreate(data);
 };
 
-export default { createUser, findByQuery, updateUserById, bulkInsert };
+export default { createUser, findByQuery, updateUserById, bulkInsertData };

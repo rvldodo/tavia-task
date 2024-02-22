@@ -81,9 +81,9 @@ export const verifyTokenForgetPassword = async (req, res, next) => {
 
   if (!user) new NotFoundException("User not found", ErrorCodes.USER_NOT_FOUND);
 
-  const hashPassword = await hashPassword(req.body.password);
+  const hash = await hashPassword(req.body.password);
 
-  await userRepo.updateUserById(user?.id, { password: hashPassword });
+  await userRepo.updateUserById(user?.id, { password: hash });
 
   return res.status(200).json({ message: "successfully reset password" });
 };
